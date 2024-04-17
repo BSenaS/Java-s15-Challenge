@@ -1,5 +1,7 @@
 package com.workintech.library;
 
+import com.workintech.person.Author;
+
 public class Book {
     private long book_ID;
     private String author;
@@ -8,6 +10,7 @@ public class Book {
     private boolean status;
 
     private CATEGORIES categories;
+
 
     public Book(long book_ID, String author, String name, double price, boolean status, CATEGORIES categories) {
         this.book_ID = book_ID;

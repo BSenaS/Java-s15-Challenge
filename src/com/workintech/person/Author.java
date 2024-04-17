@@ -6,7 +6,14 @@ public class Author extends Person{
     }
 
     @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
     public void whoYouAre() {
         System.out.println(getName() + " is a Author");
     }
+
+
 }
