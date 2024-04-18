@@ -2,7 +2,9 @@ package com.workintech.library;
 
 import com.workintech.person.Author;
 import com.workintech.person.Member_Record;
+import jdk.management.jfr.FlightRecorderMXBean;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Library {
@@ -91,7 +93,8 @@ public class Library {
             book.setStatus(true);
             borrowedBooks.put(member.getMember_id(),book);
             member.setMaxBookLimit(member.getMaxBookLimit() + 1);
-            System.out.println(book.getName() + " " + "Adlı Kitap başarıyla ödünç alındı.");
+            System.out.println("---Görev 10 Fatura Kesimi---");
+            borrowBookReceipt(member,book);
         }
     }
 
@@ -101,13 +104,12 @@ public class Library {
     }
 
     public void returnBook(Member_Record member, long bookID) {
-        // Kullanıcının ödünç aldığı kitabı geri iade etme işlemi
         if (borrowedBooks.containsKey(member.getMember_id())) {
             Book returnedBook = borrowedBooks.get(member.getMember_id());
             if (returnedBook.getBook_ID() == bookID) {
-                returnedBook.setStatus(false); // Kitabın durumunu geri iade yapıldı olarak ayarla
-                borrowedBooks.remove(member.getMember_id()); // Ödünç alınan kitabı listeden kaldır
-                member.setMaxBookLimit(member.getMaxBookLimit() - 1); // Kullanıcının maksimum kitap sayısını azalt
+                returnedBook.setStatus(false);
+                borrowedBooks.remove(member.getMember_id());
+                member.setMaxBookLimit(member.getMaxBookLimit() - 1);
                 System.out.println("Kitap başarıyla iade edildi: " + returnedBook);
             } else {
                 System.out.println("Belirtilen ID'ye sahip kitap bu kullanıcı tarafından ödünç alınmamış.");
@@ -116,6 +118,14 @@ public class Library {
             System.out.println("Bu kullanıcıya ait ödünç alınmış kitap bulunmamaktadır.");
         }
     }
+
+    public void borrowBookReceipt(Member_Record member, Book book){
+        System.out.println(book.getName() +": " + "Adlı kitabı ödünç aldınız faturası ektedir.");
+        System.out.println("Kitabın fiyatı:" + book.getPrice());
+        System.out.println("Kitabı yazarı:" + book.getAuthor());
+        System.out.println("Kitabı aldığınız tarih:" + LocalDate.now());
+    }
+
 
     @Override
     public boolean equals(Object o) {
