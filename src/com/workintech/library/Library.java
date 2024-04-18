@@ -100,16 +100,33 @@ public class Library {
         return borrowedBooks;
     }
 
+    public void returnBook(Member_Record member, long bookID) {
+        // Kullanıcının ödünç aldığı kitabı geri iade etme işlemi
+        if (borrowedBooks.containsKey(member.getMember_id())) {
+            Book returnedBook = borrowedBooks.get(member.getMember_id());
+            if (returnedBook.getBook_ID() == bookID) {
+                returnedBook.setStatus(false); // Kitabın durumunu geri iade yapıldı olarak ayarla
+                borrowedBooks.remove(member.getMember_id()); // Ödünç alınan kitabı listeden kaldır
+                member.setMaxBookLimit(member.getMaxBookLimit() - 1); // Kullanıcının maksimum kitap sayısını azalt
+                System.out.println("Kitap başarıyla iade edildi: " + returnedBook);
+            } else {
+                System.out.println("Belirtilen ID'ye sahip kitap bu kullanıcı tarafından ödünç alınmamış.");
+            }
+        } else {
+            System.out.println("Bu kullanıcıya ait ödünç alınmış kitap bulunmamaktadır.");
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Library library)) return false;
-        return Objects.equals(books, library.books) && Objects.equals(authors, library.authors);
+        return Objects.equals(books, library.books) && Objects.equals(authors, library.authors) && Objects.equals(members, library.members) && Objects.equals(borrowedBooks, library.borrowedBooks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(books, authors);
+        return Objects.hash(books, authors, members, borrowedBooks);
     }
 
     @Override

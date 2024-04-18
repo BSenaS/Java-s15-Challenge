@@ -16,6 +16,8 @@ public class Main {
         Book book4 = new Book(4,"Firat","Robin Hood",100,false,CATEGORIES.MAGAZINES);
         Book book5 = new Book(5,"Kazım","Flikon Hood",110,false,CATEGORIES.MAGAZINES);
         Book book6 = new Book(6,"Batuhan","Cakar Hood",120,false,CATEGORIES.MAGAZINES);
+        Book book7 = new Book(7,"J.K Rowling","Harry Potter",150,false,CATEGORIES.JOURNALS);
+
 
 
         //Eklenen kitapları, Librarye ekleme
@@ -83,6 +85,8 @@ public class Main {
 
         //----------------------------------------------------------------------------------------------------------------//
 
+        System.out.println("Görev 7-10: Simülasyonları aşağıda listelenmiştir.");
+        System.out.println("---");
         //7.Bir kullanıcı sistemde eğer kitap kütüphanede varsa ve başkası tarafından alınmadıysa bir kitabı ödünç alabilir. //
         // Bu durum yaşanırsa hangi kitabın hangi kullanıcıda olduğunun bilgisi tutulmalıdır. //
 
@@ -95,20 +99,31 @@ public class Main {
         System.out.println(member1);
         System.out.println(member2);
 
-        System.out.println("*****");
+        System.out.println("---");
 
         //7-2) Kullanıcının Kitabı Ödünç Alması
         System.out.println("1.Başarılı ödünç alma simülasyonu.");
         library.borrowBook(member1,book1);
+        library.borrowBook(member2,book7);
+
+        System.out.println("---");
 
         //7-3)Zaten ödünç verilmiş bir kitabın alınmaya calısması simülasyonu.
         System.out.println("2.Daha önce ödünç alınmış kitapı almaya çalışma simülasyonu.");
         library.borrowBook(member2,book1);
 
+        System.out.println("---");
+
         //7-4)Hali hazır da 5 tane kitap ödünç almış birisinin tekrardan kitap almaya çalışma simülasyonu.
         System.out.println("3.Maximum Ödünç Alma Sayısını Aşma Simülasyonu");
         library.borrowBook(member3,book6);
 
+        System.out.println("---");
+        System.out.println("Ödünç Alınan Kitaplar" + library.getBorrowedBooks());
 
+        System.out.println("---");
+
+        System.out.println("Ödünç alınan kitap başarı ile geri alındı...");
+        library.returnBook(member2,book7.getBook_ID());
     }
 }
